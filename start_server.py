@@ -13,8 +13,8 @@ project secret is still in the environment. python3 and uv are found via PATH.
 import os
 import sys
 
-# Name the bridge reads -> name of the Infisical secret it comes from. The bridge's bot is
-# @claude_bride_ricardo_bot ("Claudia"); Infisical also holds another bot's token.
+# Name the bridge reads -> name of the Infisical secret it comes from. The bridge uses the
+# "Claudia" bot; Infisical also holds another bot's token, which must never reach the bridge.
 SECRETS = {
     "TELEGRAM_BOT_TOKEN": "TELEGRAM_BOT_TOKEN_CLAUDIA",
     "TELEGRAM_CHAT_ID": "TELEGRAM_CHAT_ID",
@@ -24,10 +24,7 @@ ALLOWED_PREFIXES = ("LC_", "XDG_")
 
 
 def filtered_env(environ: dict[str, str]) -> dict[str, str]:
-    kept = {
-        k: v for k, v in environ.items()
-        if k in ALLOWED or k.startswith(ALLOWED_PREFIXES)
-    }
+    kept = {k: v for k, v in environ.items() if k in ALLOWED or k.startswith(ALLOWED_PREFIXES)}
     for target, source in SECRETS.items():
         kept[target] = environ[source]
     return kept
