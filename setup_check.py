@@ -6,8 +6,7 @@ import urllib.request
 
 token = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 if not token:
-    print("ERROR: Set TELEGRAM_BOT_TOKEN environment variable first")
-    print("  export TELEGRAM_BOT_TOKEN=your_token_here")
+    print("ERROR: TELEGRAM_BOT_TOKEN is not set. It comes from Infisical; see README step 3.")
     raise SystemExit(1)
 
 base = f"https://api.telegram.org/bot{token}"

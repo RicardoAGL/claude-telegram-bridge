@@ -52,7 +52,7 @@ Store the bot token as `TELEGRAM_BOT_TOKEN_CLAUDIA` and the chat id as `TELEGRAM
 To find your chat ID, send any message to your bot on Telegram, then run (`setup_check.py` reads `TELEGRAM_BOT_TOKEN`, so the Infisical name is mapped):
 
 ```bash
-~/infisical-run.sh bash -c 'TELEGRAM_BOT_TOKEN="$TELEGRAM_BOT_TOKEN_CLAUDIA" uv run python setup_check.py'
+~/infisical-run.sh bash -c 'export TELEGRAM_BOT_TOKEN="$TELEGRAM_BOT_TOKEN_CLAUDIA"; python3 -I -S setup_check.py'
 ```
 
 This prints your bot info and recent chat IDs.

@@ -38,7 +38,8 @@ def _get_token() -> str:
     if not token:
         raise ValueError(
             "TELEGRAM_BOT_TOKEN environment variable is not set. "
-            "Add it to the MCP server config in ~/.claude/settings.json"
+            "Start the bridge through launch.sh, which loads it from Infisical "
+            "(TELEGRAM_BOT_TOKEN_CLAUDIA)."
         )
     return token
 
