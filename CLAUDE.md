@@ -10,6 +10,9 @@ claude-telegram-bridge/
 ├── pyproject.toml                          # uv project config
 ├── uv.lock                                # Locked dependencies
 ├── setup_check.py                         # Standalone setup helper (no MCP needed)
+├── launch.sh                              # MCP entry point: runs start_server.py inside infisical-run.sh
+├── start_server.py                        # Keeps only the bridge's two secrets, then starts it
+├── test_launch.py                         # Launcher tests (uv run --with pytest pytest -q)
 ├── CLAUDE.md                              # This file
 ├── README.md                              # User-facing documentation
 └── src/claude_telegram_bridge/
@@ -81,8 +84,9 @@ State persisted at `~/.claude/telegram-bridge-state.json`:
 
 Registered in `~/.claude.json` under `mcpServers.telegram-bridge`:
 ```
-command: /bin/bash -c "source .envrc && uv run claude-telegram-bridge"
-env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (loaded from .envrc)
+command: bash /path/to/claude-telegram-bridge/launch.sh
+env: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (from Infisical via infisical-run.sh; start_server.py
+     drops every other injected secret before uv starts; no env file, missing secret = hard error)
 ```
 
 ## Development
