@@ -47,18 +47,12 @@ uv sync
 
 ### 3. Configure Environment
 
-Create a `.envrc` file in the project root:
+Store the bot token as `TELEGRAM_BOT_TOKEN_CLAUDIA` and the chat id as `TELEGRAM_CHAT_ID` in Infisical (project "Homelab Secrets", env `prod`); the launcher hands the token to the bridge as `TELEGRAM_BOT_TOKEN`. There is no env file: `launch.sh` loads both through the fleet's `infisical-run.sh` wrapper and fails loudly if either is missing.
+
+To find your chat ID, send any message to your bot on Telegram, then run (`setup_check.py` reads `TELEGRAM_BOT_TOKEN`, so the Infisical name is mapped):
 
 ```bash
-export TELEGRAM_BOT_TOKEN="your-bot-token-here"
-export TELEGRAM_CHAT_ID="your-chat-id-here"
-```
-
-To find your chat ID, send any message to your bot on Telegram, then run:
-
-```bash
-source .envrc
-uv run python setup_check.py
+~/infisical-run.sh bash -c 'export TELEGRAM_BOT_TOKEN="$TELEGRAM_BOT_TOKEN_CLAUDIA"; python3 -I -S setup_check.py'
 ```
 
 This prints your bot info and recent chat IDs.
@@ -71,8 +65,8 @@ Add to your Claude Code MCP config (`~/.claude.json`):
 {
   "mcpServers": {
     "telegram-bridge": {
-      "command": "/bin/bash",
-      "args": ["-c", "source /path/to/claude-telegram-bridge/.envrc && uv run --directory /path/to/claude-telegram-bridge claude-telegram-bridge"]
+      "command": "bash",
+      "args": ["/path/to/claude-telegram-bridge/launch.sh"]
     }
   }
 }
